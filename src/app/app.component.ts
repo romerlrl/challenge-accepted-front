@@ -75,6 +75,9 @@ export class AppComponent implements OnInit {
 
   selectedCity: WeatherData | null = null;
 
+  temperatureUnit: string = 'C'; // Unidade padrão para temperatura (Celsius)
+  rainUnit: string = 'mm';      // Unidade padrão para chuva (milímetros)
+
   ngOnInit() {
     this.filteredOptions = this.myControl.valueChanges.pipe(
       startWith(''),
@@ -90,11 +93,24 @@ export class AppComponent implements OnInit {
     );
   }
 
+  formatTemperature(value: number): string {
+    if (this.temperatureUnit === 'F') {
+      return ((value * 9/5) + 32).toFixed(2) + ' °F';
+    }
+    return value.toFixed(2) + ' °C';
+  }
+
+  formatRain(value: number | string): string {
+    const numericValue = typeof value === 'string' ? parseInt(value) : value;
+    if (this.rainUnit === 'in') {
+      return (numericValue * 0.0393701).toFixed(2) + ' in';
+    }
+    return numericValue.toFixed(2) + ' mm';
+  }
+
   onSubmit() {
-    
     const cityName = this.myControl.value.name;
     this.selectedCity = weatherData.find((data: WeatherData) => data.locale.name === cityName) || null;
-
     this.myControl.setValue('');
   }
 }
