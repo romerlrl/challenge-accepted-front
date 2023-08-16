@@ -1,3 +1,4 @@
+
 import { HttpClientModule } from '@angular/common/http';
 import { Component, OnInit, ViewEncapsulation, VERSION, ViewChild, ElementRef } from '@angular/core';
 import { FormControl, FormsModule, ReactiveFormsModule } from '@angular/forms';
@@ -123,8 +124,8 @@ export class AppComponent implements OnInit {
   onSubmit() {
     console.log("Form Submitted", this.myControl.value)
     console.log()
-    this.myName2.nativeElement.innerHTML = "<h1>Previsão do tempo para " + this.myControl.value + "</h1>";
-
+    this.myName2.nativeElement.innerHTML = "<h1>Previsão para " + this.myControl.value.name + " - SP</h1>";
+    this.myControl.setValue('');
     //console.log(this.contactForm.value)
   }
 }

@@ -104,5 +104,8 @@
       }
     }
   },
-  "defaultProject": "angular-climatempo-frontend"
+  "defaultProject": "angular-climatempo-frontend",
+  "cli": {
+    "analytics": "40db574b-5d28-4f92-b79c-37e72a798a6d"
+  }
 }

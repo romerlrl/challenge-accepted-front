@@ -10,28 +10,45 @@
 <head>
   <link rel="stylesheet" href="app.component.css" />
 </head>
-<form class="example-form" (ngSubmit)="onSubmit()">
-  <mat-form-field>
-    <input
-      type="text"
-      placeholder="Enter Location"
-      matInput
-      [formControl]="myControl"
-      [matAutocomplete]="auto"
-    />
-    <mat-autocomplete #auto="matAutocomplete">
-      <mat-option
-        *ngFor="let option of filteredOptions | async"
-        [value]="option"
-      >
-        {{ option.name }}
-      </mat-option>
-    </mat-autocomplete>
-    <button type="submit">Submit</button>
-  </mat-form-field>
-  <br />
-  <br />
-  <br />
-</form>
-<br /><br /><br /><br />
-<div #myName></div>
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  
+</head>
+<body>
+  
+  <style>
+    body{
+      background-color: lightgrey;
+    }
+  </style>
+
+      <form class="example-form" (ngSubmit)="onSubmit()">
+        <mat-form-field>
+          <input
+            type="text"
+            placeholder="Enter Location"
+            matInput
+            [formControl]="myControl"
+            [matAutocomplete]="auto"
+          />
+          <mat-autocomplete #auto="matAutocomplete">
+            <mat-option
+              *ngFor="let option of filteredOptions | async"
+              [value]="option"
+            >
+              {{ option.name }}
+            </mat-option>
+          </mat-autocomplete>
+          <button type="submit">Submit</button>
+        </mat-form-field>
+        <br />
+        <br />
+        <br />
+      </form>
+      <br /><br /><br /><br />
+      <div #myName></div>
+
+</body>
+</html>
