@@ -1,39 +1,22 @@
-
-import { HttpClientModule } from '@angular/common/http';
-import { Component, OnInit, ViewEncapsulation, VERSION, ViewChild, ElementRef } from '@angular/core';
-import { FormControl, FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { FormControl } from '@angular/forms';
 import { Observable } from 'rxjs';
 import { map, startWith } from 'rxjs/operators';
-import { NgForOf, AsyncPipe } from '@angular/common';
-import { MatAutocompleteModule } from '@angular/material/autocomplete';
-import { MatInputModule } from '@angular/material/input';
-import { MatFormFieldModule } from '@angular/material/form-field';
-
 import { City } from './models/city';
-import { CityService } from './services/city.service';
-/**
- * @title Filter autocomplete
- */
-
+import { WeatherData, WeatherEntry } from './models/weather';
+import { weatherData } from './models/weather';
 
 @Component({
   selector: 'app-root',
-
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css'],
 })
-
 export class AppComponent implements OnInit {
-
   city = {} as City;
-  //options: City[];
-  title = 'angular-climatempo-frontend';
-  //name: string
   name = 'Angular';
   @ViewChild("myName") myName2: ElementRef;
 
-  constructor(private cityService: CityService) { }
-  //myName.nativeElement.innerHTML = "I am changed by ElementRef & ViewChild";
+  // Dados de cidades
   options: City[] = [
     {
       "id": 3735,
@@ -85,47 +68,33 @@ export class AppComponent implements OnInit {
       "longitude": -46.6360
     }
   ];
-  options3 = ["são paulo", "osasco"]
+  options3 = ["são paulo", "osasco"];
 
-  //options = this.options2.map((city) => city.name);
-
-  //getCities();
   myControl = new FormControl();
-
-
   filteredOptions: Observable<City[]>;
-  getCities() {
-    this.cityService.getCities().subscribe((city: City[]) => {
-      this.options = city;
-    });
-  }
-  ngOnInit() {
 
-    console.log(this.options)
+  selectedCity: WeatherData | null = null;
+
+  ngOnInit() {
     this.filteredOptions = this.myControl.valueChanges.pipe(
       startWith(''),
       map(value => (typeof value === "string" ? value : value.name)),
       map(name => (name ? this._filter_city(name) : this.options.slice()))
     );
   }
-  // Testes para isso aqui:
+
   private _filter_city(name: string): City[] {
     const filterValue = name.toLowerCase();
-
     return this.options.filter(
       option => option.name.toLowerCase().indexOf(filterValue) === 0
     );
   }
-  /* private _filter_string(value: string): string[] {
-    console.log(value)
-    const filterValue = value.toLowerCase();
-    return this.options.filter(option => option.toLowerCase().includes(filterValue));
-  } */
+
   onSubmit() {
-    console.log("Form Submitted", this.myControl.value)
-    console.log()
-    this.myName2.nativeElement.innerHTML = "<h1>Previsão para " + this.myControl.value.name + " - SP</h1>";
+    
+    const cityName = this.myControl.value.name;
+    this.selectedCity = weatherData.find((data: WeatherData) => data.locale.name === cityName) || null;
+
     this.myControl.setValue('');
-    //console.log(this.contactForm.value)
   }
 }

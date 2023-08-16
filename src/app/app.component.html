@@ -50,5 +50,31 @@
       <br /><br /><br /><br />
       <div #myName></div>
 
+      
+
+      <!-- <div>
+        <label for="cityInput">Escolha uma cidade:</label>
+        <input type="text" id="cityInput" [formControl]="myControl" [matAutocomplete]="auto">
+        <mat-autocomplete #auto="matAutocomplete">
+          <mat-option *ngFor="let option of filteredOptions | async" [value]="option.name">
+            {{ option.name }} - {{ option.state }}
+          </mat-option>
+        </mat-autocomplete>
+      </div> -->
+      
+      
+      
+      <div *ngIf="selectedCity">
+        <h2>Previsão para {{ selectedCity.locale.name }} - {{ selectedCity.locale.state }}</h2>
+        <p>Período: {{ selectedCity.period.begin }} a {{ selectedCity.period.end }}</p>
+        <p>{{ selectedCity.weather[0].text }}</p>
+        <p>Temperatura Mínima: {{ selectedCity.weather[0].temperature.min }}°C</p>
+        <p>Temperatura Máxima: {{ selectedCity.weather[0].temperature.max }}°C</p>
+        <p>Probabilidade de Chuva: {{ selectedCity.weather[0].rain.probability }}%</p>
+        <p>Precipitação de Chuva: {{ selectedCity.weather[0].rain.precipitation }}</p>
+      </div>
+      
+<h1>Só funciona pra SP e Osasco por conta dos dados adquiridos</h1>
+
 </body>
 </html>
