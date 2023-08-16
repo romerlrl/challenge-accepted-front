@@ -75,8 +75,13 @@ export class AppComponent implements OnInit {
 
   selectedCity: WeatherData | null = null;
 
-  temperatureUnit: string = 'C'; // Unidade padrão para temperatura (Celsius)
-  rainUnit: string = 'mm';      // Unidade padrão para chuva (milímetros)
+  // Variáveis para controle das unidades de temperatura e chuva
+  temperatureUnit: 'C' | 'F' = 'C';
+  rainUnit: 'mm' | 'inch' = 'mm';
+
+  // Texto dos botões para alterar unidades
+  temperatureButtonText = 'Alterar para Fahrenheit';
+  rainButtonText = 'Alterar para Polegadas';
 
   ngOnInit() {
     this.filteredOptions = this.myControl.valueChanges.pipe(
@@ -93,24 +98,52 @@ export class AppComponent implements OnInit {
     );
   }
 
-  formatTemperature(value: number): string {
-    if (this.temperatureUnit === 'F') {
-      return ((value * 9/5) + 32).toFixed(2) + ' °F';
-    }
-    return value.toFixed(2) + ' °C';
-  }
-
-  formatRain(value: number | string): string {
-    const numericValue = typeof value === 'string' ? parseInt(value) : value;
-    if (this.rainUnit === 'in') {
-      return (numericValue * 0.0393701).toFixed(2) + ' in';
-    }
-    return numericValue.toFixed(2) + ' mm';
-  }
-
   onSubmit() {
     const cityName = this.myControl.value.name;
     this.selectedCity = weatherData.find((data: WeatherData) => data.locale.name === cityName) || null;
     this.myControl.setValue('');
+  }
+
+  // Função para alternar unidade de temperatura
+  changeTemperatureUnit() {
+    this.temperatureUnit = this.temperatureUnit === 'C' ? 'F' : 'C';
+    this.updateTemperatureButtonText();
+  }
+
+  // Função para alternar unidade de chuva
+  changeRainUnit() {
+    this.rainUnit = this.rainUnit === 'mm' ? 'inch' : 'mm';
+    this.updateRainButtonText();
+  }
+
+  // Função para atualizar o texto do botão de temperatura
+  updateTemperatureButtonText() {
+    this.temperatureButtonText = this.temperatureUnit === 'C' ? 'Alterar para Fahrenheit' : 'Alterar para Celsius';
+  }
+
+  // Função para atualizar o texto do botão de chuva
+  updateRainButtonText() {
+    this.rainButtonText = this.rainUnit === 'mm' ? 'Alterar para Polegadas' : 'Alterar para Milímetros';
+  }
+
+  // Função para formatar temperatura baseado na unidade
+  formatTemperature(temperature: number): string {
+    if (this.temperatureUnit === 'F') {
+      // Converter para Fahrenheit
+      temperature = (temperature * 9/5) + 32;
+      return `${temperature.toFixed(2)} °F`;
+    }
+    return `${temperature.toFixed(2)} °C`;
+  }
+
+  // Função para formatar chuva (precipitação) baseado na unidade
+  formatRain(rain: number | string): string {
+    if (this.rainUnit === 'inch') {
+      // Converter para polegadas
+      const mmToInch = 0.0393701;
+      const inches = parseFloat(rain as string) * mmToInch;
+      return `${inches.toFixed(2)} in`;
+    }
+    return `${rain} mm`;
   }
 }
