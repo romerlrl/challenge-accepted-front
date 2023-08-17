@@ -51,12 +51,14 @@
     </form>
     <br /><br /><br /><br />
     <div #myName></div>
-  
+    
+    <button (click)="changeTemperatureUnit()">{{ temperatureButtonText }}</button>
+    <button (click)="changeRainUnit()">{{ rainButtonText }}</button>
     <div *ngIf="selectedCity">
       <h2>Previsão para {{ selectedCity.locale.name }} - {{ selectedCity.locale.state }}</h2>
       <p>Período: {{ selectedCity.period.begin }} a {{ selectedCity.period.end }}</p>
   
-      <!-- Loop through the weather data and create cards for each day -->
+      
       <div *ngFor="let entry of selectedCity.weather; let i = index" class="weather-card">
         <h3>Dia {{ i + 1 }}</h3>
         <p>Data: {{ entry.date }}</p>
@@ -68,8 +70,6 @@
       </div>
     </div>
   
-    <button (click)="changeTemperatureUnit()">{{ temperatureButtonText }}</button>
-    <button (click)="changeRainUnit()">{{ rainButtonText }}</button>
   
     <h1>Só funciona pra SP e Osasco por conta dos dados adquiridos</h1>
   </body>
