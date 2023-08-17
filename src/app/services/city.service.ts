@@ -14,7 +14,7 @@ export class CityService {
   // Headers
   httpOptions = {
     headers: new HttpHeaders({ 'Content-Type': 'application/json' })
-  }
+  };
 
   // Obtem todas as cidades
   getCities(): Observable<City[]> {

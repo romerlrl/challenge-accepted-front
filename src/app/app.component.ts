@@ -32,7 +32,7 @@ export class AppComponent implements OnInit {
   @ViewChild("myName") myName2: ElementRef;
 
   constructor(private cityService: CityService) { }
-  //myName.nativeElement.innerHTML = "I am changed by ElementRef & ViewChild";
+
   options: City[] = [
     {
       "id": 3735,
@@ -90,17 +90,53 @@ export class AppComponent implements OnInit {
 
   //getCities();
   myControl = new FormControl();
-
+  cities: City[];
+  loading: boolean = false;
+  errorMessage: String = "";
 
   filteredOptions: Observable<City[]>;
-  getCities() {
+  /* getCities() {
     this.cityService.getCities().subscribe((city: City[]) => {
       this.options = city;
     });
   }
+  public getCities() {
+    this.cityService.getCities()
+      .subscribe(
+        cities => this.cities = cities);
+  }*/
+
+  public getCity() {
+    console.log("obs")
+    this.loading = true;
+    this.errorMessage = "";
+    this.cityService.getCities()
+      .subscribe(
+        (response) => {                           //next() callback
+          console.log('response received')
+          this.cities = response;
+          console.log(response)
+        },
+        (error) => {                              //error() callback
+          console.error('Request failed with error')
+          this.errorMessage = error;
+          this.loading = false;
+        },
+        () => {                                   //complete() callback
+          console.error('Request completed')      //This is actually not needed
+          this.loading = false;
+        })
+  }
+
+
+
   ngOnInit() {
 
-    console.log(this.options)
+
+    this.cityService.getCities()
+    console.log("observable", this.cities)
+
+    console.log("options", this.options)
     this.filteredOptions = this.myControl.valueChanges.pipe(
       startWith(''),
       map(value => (typeof value === "string" ? value : value.name)),
@@ -122,8 +158,11 @@ export class AppComponent implements OnInit {
   } */
   onSubmit() {
     console.log("Form Submitted", this.myControl.value)
-    console.log()
-    this.myName2.nativeElement.innerHTML = "<h1>Previsão do tempo para " + this.myControl.value + "</h1>";
+    let info: City = this.myControl.value
+    this.myControl.setValue(info.name);
+    console.log("this mycontrol value", this.myControl.value, "--")
+    console.log("info", info)
+    this.myName2.nativeElement.innerHTML = "<h1>Previsão do tempo para " + info.name + "</h1>";
 
     //console.log(this.contactForm.value)
   }
