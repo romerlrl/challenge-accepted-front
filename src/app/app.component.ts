@@ -1,38 +1,22 @@
-import { HttpClientModule } from '@angular/common/http';
-import { Component, OnInit, ViewEncapsulation, VERSION, ViewChild, ElementRef } from '@angular/core';
-import { FormControl, FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { FormControl } from '@angular/forms';
 import { Observable } from 'rxjs';
 import { map, startWith } from 'rxjs/operators';
-import { NgForOf, AsyncPipe } from '@angular/common';
-import { MatAutocompleteModule } from '@angular/material/autocomplete';
-import { MatInputModule } from '@angular/material/input';
-import { MatFormFieldModule } from '@angular/material/form-field';
-
 import { City } from './models/city';
-import { CityService } from './services/city.service';
-/**
- * @title Filter autocomplete
- */
+import { WeatherData, weatherData } from './models/weather';
 
 
 @Component({
   selector: 'app-root',
-
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css'],
 })
-
 export class AppComponent implements OnInit {
-
   city = {} as City;
-  //options: City[];
-  title = 'angular-climatempo-frontend';
-  //name: string
   name = 'Angular';
   @ViewChild("myName") myName2: ElementRef;
 
-  constructor(private cityService: CityService) { }
-
+  // Dados de cidades
   options: City[] = [
     {
       "id": 3735,
@@ -84,86 +68,83 @@ export class AppComponent implements OnInit {
       "longitude": -46.6360
     }
   ];
-  options3 = ["são paulo", "osasco"]
+  options3 = ["são paulo", "osasco"];
 
-  //options = this.options2.map((city) => city.name);
-
-  //getCities();
   myControl = new FormControl();
-  cities: City[];
-  loading: boolean = false;
-  errorMessage: String = "";
-
   filteredOptions: Observable<City[]>;
-  /* getCities() {
-    this.cityService.getCities().subscribe((city: City[]) => {
-      this.options = city;
-    });
-  }
-  public getCities() {
-    this.cityService.getCities()
-      .subscribe(
-        cities => this.cities = cities);
-  }*/
 
-  public getCity() {
-    console.log("obs")
-    this.loading = true;
-    this.errorMessage = "";
-    this.cityService.getCities()
-      .subscribe(
-        (response) => {                           //next() callback
-          console.log('response received')
-          this.cities = response;
-          console.log(response)
-        },
-        (error) => {                              //error() callback
-          console.error('Request failed with error')
-          this.errorMessage = error;
-          this.loading = false;
-        },
-        () => {                                   //complete() callback
-          console.error('Request completed')      //This is actually not needed
-          this.loading = false;
-        })
-  }
+  selectedCity: WeatherData | null = null;
 
+  // Variáveis para controle das unidades de temperatura e chuva
+  temperatureUnit: 'C' | 'F' = 'C';
+  rainUnit: 'mm' | 'inch' = 'mm';
 
+  // Texto dos botões para alterar unidades
+  temperatureButtonText = 'Alterar para Fahrenheit';
+  rainButtonText = 'Alterar para Polegadas';
 
   ngOnInit() {
-
-
-    this.cityService.getCities()
-    console.log("observable", this.cities)
-
-    console.log("options", this.options)
     this.filteredOptions = this.myControl.valueChanges.pipe(
       startWith(''),
       map(value => (typeof value === "string" ? value : value.name)),
       map(name => (name ? this._filter_city(name) : this.options.slice()))
     );
   }
-  // Testes para isso aqui:
+
   private _filter_city(name: string): City[] {
     const filterValue = name.toLowerCase();
-
     return this.options.filter(
       option => option.name.toLowerCase().indexOf(filterValue) === 0
     );
   }
-  /* private _filter_string(value: string): string[] {
-    console.log(value)
-    const filterValue = value.toLowerCase();
-    return this.options.filter(option => option.toLowerCase().includes(filterValue));
-  } */
-  onSubmit() {
-    console.log("Form Submitted", this.myControl.value)
-    let info: City = this.myControl.value
-    this.myControl.setValue(info.name);
-    console.log("this mycontrol value", this.myControl.value, "--")
-    console.log("info", info)
-    this.myName2.nativeElement.innerHTML = "<h1>Previsão do tempo para " + info.name + "</h1>";
 
-    //console.log(this.contactForm.value)
+  onSubmit() {
+    const cityName: String = this.myControl.value.name;
+    this.selectedCity = weatherData.find((data: WeatherData) => data.locale.name === cityName) || null;
+    console.log(this.myControl.value)
+    //this.myControl.setValue('');
+  }
+
+  // Função para alternar unidade de temperatura
+  changeTemperatureUnit() {
+    this.temperatureUnit = this.temperatureUnit === 'C' ? 'F' : 'C';
+    this.updateTemperatureButtonText();
+  }
+
+  // Função para alternar unidade de chuva
+  changeRainUnit() {
+    this.rainUnit = this.rainUnit === 'mm' ? 'inch' : 'mm';
+    this.updateRainButtonText();
+  }
+
+  // Função para atualizar o texto do botão de temperatura
+  updateTemperatureButtonText() {
+    this.temperatureButtonText = this.temperatureUnit === 'C' ? 'Alterar para Fahrenheit' : 'Alterar para Celsius';
+  }
+
+  // Função para atualizar o texto do botão de chuva
+  updateRainButtonText() {
+    this.rainButtonText = this.rainUnit === 'mm' ? 'Alterar para Polegadas' : 'Alterar para Milímetros';
+  }
+
+  // Função para formatar temperatura baseado na unidade
+  formatTemperature(temperature: number): string {
+    if (this.temperatureUnit === 'F') {
+      // Converter para Fahrenheit
+      temperature = (temperature * 9 / 5) + 32;
+      return `${temperature.toFixed(2)} °F`;
+    }
+    return `${temperature.toFixed(2)} °C`;
+  }
+
+  // Função para formatar chuva (precipitação) baseado na unidade
+  formatRain(rain: number | string): string {
+    if (this.rainUnit === 'inch') {
+      // Converter para polegadas
+      const mmToInch = 0.0393701;
+      const inches = parseFloat(rain as string) * mmToInch;
+      return `${inches.toFixed(2)} in`;
+    }
+    return `${rain} mm`;
   }
 }

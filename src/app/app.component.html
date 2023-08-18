@@ -10,28 +10,82 @@
 <head>
   <link rel="stylesheet" href="app.component.css" />
 </head>
-<form class="example-form" (ngSubmit)="onSubmit()">
-  <mat-form-field>
-    <input
-      type="text"
-      placeholder="Enter Location"
-      matInput
-      [formControl]="myControl"
-      [matAutocomplete]="auto"
-    />
-    <mat-autocomplete #auto="matAutocomplete">
-      <mat-option
-        *ngFor="let option of filteredOptions | async"
-        [value]="option"
-      >
-        {{ option.name }}
-      </mat-option>
-    </mat-autocomplete>
-    <button type="submit">Submit</button>
-  </mat-form-field>
-  <br />
-  <br />
-  <br />
-</form>
-<br /><br /><br /><br />
-<div #myName></div>
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <link rel="stylesheet" href="app.component.css" />
+  </head>
+  <body>
+    <style>
+      body {
+        background-color: green;
+      }
+    </style>
+
+    <form class="example-form" (ngSubmit)="onSubmit()">
+      <mat-form-field>
+        <input
+          type="text"
+          placeholder="Enter Location"
+          matInput
+          [formControl]="myControl"
+          [matAutocomplete]="auto"
+        />
+        <mat-autocomplete #auto="matAutocomplete">
+          <mat-option
+            *ngFor="let option of filteredOptions | async"
+            [value]="option"
+          >
+            {{ option.name }}
+          </mat-option>
+        </mat-autocomplete>
+        <button type="submit">Submit</button>
+      </mat-form-field>
+      <br />
+      <br />
+      <br />
+    </form>
+    <br /><br /><br /><br />
+    <div #myName></div>
+
+    <div *ngIf="selectedCity">
+      <h2>
+        Previsão para {{ selectedCity.locale.name }} -
+        {{ selectedCity.locale.state }}
+      </h2>
+
+      <p>
+        Período: {{ selectedCity.period.begin }} a
+        {{ selectedCity.period.end }}
+      </p>
+      <tr *ngFor="let day of selectedCity.weather">
+        <p>{{ day.text }}</p>
+        <p>
+          Temperatura Mínima:
+          {{ formatTemperature(day.temperature.min) }}
+        </p>
+        <p>
+          Temperatura Máxima:
+          {{ formatTemperature(day.temperature.max) }}
+        </p>
+        <p>
+          Probabilidade de Chuva:
+          {{ day.rain.probability }}%
+        </p>
+        <p>
+          Precipitação de Chuva:
+          {{ formatRain(day.rain.precipitation) }}
+        </p>
+        <br /><br />
+      </tr>
+    </div>
+
+    <button (click)="changeTemperatureUnit()">
+      {{ temperatureButtonText }}
+    </button>
+    <button (click)="changeRainUnit()">{{ rainButtonText }}</button>
+
+    <h1>Só funciona pra SP e Osasco por conta dos dados adquiridos</h1>
+  </body>
+</html>
