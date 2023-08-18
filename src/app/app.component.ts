@@ -1,3 +1,4 @@
+import { WeatherService } from './services/weather.service';
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { Observable } from 'rxjs';
@@ -5,7 +6,7 @@ import { map, startWith } from 'rxjs/operators';
 import { City } from './models/city';
 import { WeatherData, WeatherEntry } from './models/weather';
 import { weatherData } from './models/weather';
-
+import { CityService } from './services/city.service';
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
@@ -83,13 +84,28 @@ export class AppComponent implements OnInit {
   temperatureButtonText = 'Alterar para Fahrenheit';
   rainButtonText = 'Alterar para Polegadas';
 
-  ngOnInit() {
-    this.filteredOptions = this.myControl.valueChanges.pipe(
-      startWith(''),
-      map(value => (typeof value === "string" ? value : value.name)),
-      map(name => (name ? this._filter_city(name) : this.options.slice()))
-    );
+  constructor(private cityService: CityService, private weatherService: WeatherService) {
+
   }
+  ngOnInit() {
+
+
+    const req = this.cityService.getCity();
+
+    req.subscribe((data) => {
+      this.options = data
+      this.filteredOptions = this.myControl.valueChanges.pipe(
+        startWith(''),
+        map(value => (typeof value === "string" ? value : value.name)),
+        map(name => (name ? this._filter_city(name) : this.options.slice()))
+      );
+      console.log(this.options)
+    });
+    //console.log("consume", this.cities3)
+    //console.log(this.responseCities$.name)
+
+  }
+
 
   private _filter_city(name: string): City[] {
     const filterValue = name.toLowerCase();
@@ -100,7 +116,15 @@ export class AppComponent implements OnInit {
 
   onSubmit() {
     const cityName = this.myControl.value.name;
+    const cityId = this.myControl.value.id
     this.selectedCity = weatherData.find((data: WeatherData) => data.locale.name === cityName) || null;
+    /* const reqWeather = this.weatherService.getWeather(cityId)
+
+    reqWeather.subscribe((data) => {
+      this.selectedCity = data
+    }) */
+
+
     this.myControl.setValue('');
   }
 
@@ -130,7 +154,7 @@ export class AppComponent implements OnInit {
   formatTemperature(temperature: number): string {
     if (this.temperatureUnit === 'F') {
       // Converter para Fahrenheit
-      temperature = (temperature * 9/5) + 32;
+      temperature = (temperature * 9 / 5) + 32;
       return `${temperature.toFixed(2)} °F`;
     }
     return `${temperature.toFixed(2)} °C`;
