@@ -8,7 +8,7 @@ import { City } from '../models/city';
   providedIn: 'root'
 })
 export class CityService {
-  url = 'https://raw.githubusercontent.com/VictorGuui/challenge-accepted/master/base/locales.json'
+  url = 'http://localhost:8080/'
   constructor(private http: HttpClient) { }
 
   // Headers
@@ -17,8 +17,9 @@ export class CityService {
   }
 
   getCity(): Observable<City[]> {
-    console.log("rodando o getcity")
-    return this.http.get<City[]>(this.url);
+    console.log(`rodando o getcity: ${this.url}locales`)
+
+    return this.http.get<City[]>(`${this.url}locales`);
   }
 }
 

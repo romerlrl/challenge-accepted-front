@@ -5,8 +5,8 @@ import { Observable } from 'rxjs';
 import { map, startWith } from 'rxjs/operators';
 import { City } from './models/city';
 import { WeatherData, WeatherEntry } from './models/weather';
-import { weatherData } from './models/weather';
 import { CityService } from './services/city.service';
+
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
@@ -14,63 +14,8 @@ import { CityService } from './services/city.service';
 })
 export class AppComponent implements OnInit {
   city = {} as City;
-  name = 'Angular';
-  @ViewChild("myName") myName2: ElementRef;
-
-  // Dados de cidades
-  options: City[] = [
-    {
-      "id": 3735,
-      "name": "Osasco",
-      "state": "SP",
-      "latitude": -23.5320,
-      "longitude": -46.7920
-    },
-    {
-      "id": 3477,
-      "name": "São Paulo",
-      "state": "SP",
-      "latitude": -23.5480,
-      "longitude": -46.6360
-    },
-    {
-      "id": 2147,
-      "name": "São Carlos",
-      "state": "SP",
-      "latitude": -23.5480,
-      "longitude": -46.6360
-    },
-    {
-      "id": 4677,
-      "name": "São Bernardo",
-      "state": "SP",
-      "latitude": -23.5480,
-      "longitude": -46.6360
-    },
-    {
-      "id": 3470,
-      "name": "Saquarema",
-      "state": "RJ",
-      "latitude": -23.5480,
-      "longitude": -46.6360
-    },
-    {
-      "id": 3007,
-      "name": "Rio de Janeiro",
-      "state": "RJ",
-      "latitude": -23.5480,
-      "longitude": -46.6360
-    },
-    {
-      "id": 3447,
-      "name": "Rio das Ostras",
-      "state": "RJ",
-      "latitude": -23.5480,
-      "longitude": -46.6360
-    }
-  ];
-  options3 = ["são paulo", "osasco"];
-
+  //@ViewChild("myName") myName2: ElementRef;
+  options: City[]
   myControl = new FormControl();
   filteredOptions: Observable<City[]>;
 
@@ -117,12 +62,14 @@ export class AppComponent implements OnInit {
   onSubmit() {
     const cityName = this.myControl.value.name;
     const cityId = this.myControl.value.id
-    this.selectedCity = weatherData.find((data: WeatherData) => data.locale.name === cityName) || null;
-    /* const reqWeather = this.weatherService.getWeather(cityId)
+    //this.selectedCity = weatherData.find((data: WeatherData) => data.locale.name === cityName) || null;
+    const reqWeather = this.weatherService.getWeather(cityId)
 
     reqWeather.subscribe((data) => {
-      this.selectedCity = data
-    }) */
+      console.log("weather", data)
+      this.selectedCity = data;
+
+    })
 
 
     this.myControl.setValue('');

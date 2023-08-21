@@ -7,7 +7,7 @@ import { WeatherData } from '../models/weather';
   providedIn: 'root'
 })
 export class WeatherService {
-  url = 'localhost:8080/'
+  url = 'http://localhost:8080/'
   constructor(private http: HttpClient) { }
 
   // Headers
@@ -17,6 +17,8 @@ export class WeatherService {
 
   getWeather(id: number): Observable<WeatherData> {
     console.log("rodando o getWeather")
-    return this.http.get<WeatherData>(`${this.url}weather/${id}`);
+    const full = `${this.url}weather/${id}`
+    console.log("get weather link: ", full)
+    return this.http.get<WeatherData>(full);
   }
 }
