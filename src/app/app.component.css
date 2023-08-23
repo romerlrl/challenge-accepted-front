@@ -6,7 +6,12 @@
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
 }
-
+.weather-card {
+    border: 1px solid #ccc;
+    padding: 10px;
+    margin: 10px;
+    background-color: white;
+}
 h1,
 h2,
 h3,
@@ -292,3 +297,22 @@ svg#clouds {
     }
 }
 
+   .rounded-table {
+       border-collapse: collapse;
+       width: 200px;
+       border: 2px solid blue;
+       border-radius: 10px;
+       margin: 20px auto;
+   }
+
+   .rounded-table th,
+   .rounded-table td {
+       border: 2px solid blue;
+       padding: 10px;
+       text-align: center;
+   }
+
+   .material-icons-outlined.md-48 {
+       font-size: 48px;
+       color: blue;
+   }

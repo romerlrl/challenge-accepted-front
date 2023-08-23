@@ -8,7 +8,7 @@ import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms'
 import { MatFormFieldModule } from '@angular/material/form-field';
-
+import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 
 @NgModule({
   declarations: [
@@ -22,6 +22,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
     NoopAnimationsModule,
     MatAutocompleteModule,
     MatFormFieldModule,
+    MatSlideToggleModule,
     ReactiveFormsModule
   ],
   providers: [],

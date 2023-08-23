@@ -9,26 +9,28 @@
 
 <head>
   <link rel="stylesheet" href="app.component.css" />
+  <link
+    rel="stylesheet"
+    href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,700,0,200"
+  />
 </head>
 
 <!DOCTYPE html>
 <html lang="en">
   <head>
     <link rel="stylesheet" href="app.component.css" />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,1700,0,200"
+    />
   </head>
   <body>
     <style>
       body {
         background-color: lightgrey;
       }
-      .weather-card {
-        border: 1px solid #ccc;
-        padding: 10px;
-        margin: 10px;
-        background-color: white;
-      }
     </style>
-  
+
     <form class="example-form" (ngSubmit)="onSubmit()">
       <mat-form-field>
         <input
@@ -39,39 +41,135 @@
           [matAutocomplete]="auto"
         />
         <mat-autocomplete #auto="matAutocomplete">
-          <mat-option *ngFor="let option of filteredOptions | async" [value]="option">
+          <mat-option
+            *ngFor="let option of filteredOptions | async"
+            [value]="option"
+          >
             {{ option.name }}
           </mat-option>
         </mat-autocomplete>
-        <button type="submit">Submit</button>
+        <button type="submit">
+          <span class="material-symbols-outlined"> search </span>
+        </button>
       </mat-form-field>
-      <br />
-      <br />
-      <br />
     </form>
-    <br /><br /><br /><br />
-    <div #myName></div>
-    
-    <button (click)="changeTemperatureUnit()">{{ temperatureButtonText }}</button>
-    <button (click)="changeRainUnit()">{{ rainButtonText }}</button>
+    <!-- <button (click)="changeTemperatureUnit()">
+      {{ temperatureButtonText }}
+    </button> -->
+
+    <!-- Rounded switch -->
+
+    <mat-slide-toggle [(ngModel)]="temperatureUnitInCelsius"
+      >Exibir em Celsius</mat-slide-toggle
+    >
+
+    <mat-slide-toggle [(ngModel)]="rainUnitInPol"
+      >Exibir em Polegadas</mat-slide-toggle
+    >
+    <!-- <button (click)="changeRainUnit()">{{ rainButtonText }}</button> -->
     <div *ngIf="selectedCity">
-      <h2>Previsão para {{ selectedCity.locale.name }} - {{ selectedCity.locale.state }}</h2>
-      <p>Período: {{ selectedCity.period.begin }} a {{ selectedCity.period.end }}</p>
-  
-      
-      <div *ngFor="let entry of selectedCity.weather; let i = index" class="weather-card">
-        <h3>Dia {{ i + 1 }}</h3>
-        <p>Data: {{ entry.date }}</p>
+      <h2>
+        Previsão para {{ selectedCity.locale.name }} -
+        {{ selectedCity.locale.state }}
+      </h2>
+      <p>
+        Período: {{ selectedCity.period.begin }} a {{ selectedCity.period.end }}
+      </p>
+
+      <div
+        *ngFor="let entry of selectedCity.weather; let i = index"
+        class="weather-card"
+      >
+        <!-- <h3>Dia {{ i + 1 }}</h3>
+        <p>Data: {{ entry.date }}: {{ formatDate(entry) }}</p>
         <p>{{ entry.text }}</p>
-        <p>Temperatura Mínima: {{ formatTemperature(entry.temperature.min) }}</p>
-        <p>Temperatura Máxima: {{ formatTemperature(entry.temperature.max) }}</p>
+        <p>
+          Temperatura Mínima:
+          {{ formatTemperature(entry, !this.temperatureUnitInCelsius, true) }}
+        </p>
+        <p>
+          Temperatura Máxima:
+          {{ formatTemperature(entry, !this.temperatureUnitInCelsius, false) }}
+        </p>
         <p>Probabilidade de Chuva: {{ entry.rain.probability }}%</p>
-        <p>Precipitação de Chuva: {{ formatRain(entry.rain.precipitation) }}</p>
+        <p>
+          Precipitação de Chuva: {{ formatRain(entry, this.rainUnitInPol) }}
+        </p> -->
+        <!-- <table class="weather-card">
+          <tr>
+            <th
+              colspan="16"
+              style="
+                background-color: white;
+                color: black;
+                font-size: 12px;
+                font-family: Arial, sans-serif;
+                text-align: left;
+              "
+            >
+              Data: {{ entry.date }}: {{ entry.text }}
+            </th>
+          </tr>
+          <tr>
+            <td>MIN</td>
+            <td>{{ entry.temperature.min }}</td>
+            <td>-</td>
+            <td>-</td>
+            <td>MAX</td>
+            <td>{{ entry.temperature.max }}</td>
+
+            <td>-</td>
+            <td>-</td>
+          </tr>
+          <tr>
+            <td>Porcentagem</td>
+            <td>{{ entry.rain.probability }}</td>
+            <td>Volume</td>
+            <td>{{ entry.rain.precipitation }}</td>
+            <td>-</td>
+            <td>-</td>
+            <td>-</td>
+            <td>-</td>
+          </tr>
+        </table> -->
+        <table class="rounded-table">
+          <tr>
+            <td>{{ formatDate(entry) }}</td>
+          </tr>
+          <tr>
+            <td>
+              <span class="material-symbols-outlined">
+                {{ formatProbability(entry) }}
+              </span>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <span class="material-symbols-outlined"> arrow_downward </span>
+              {{
+                formatTemperature(entry, !this.temperatureUnitInCelsius, true)
+              }}
+              |
+              {{
+                formatTemperature(entry, !this.temperatureUnitInCelsius, false)
+              }}
+              <span class="material-symbols-outlined"> arrow_upward </span>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <span class="material-symbols-outlined"> water_drop </span>
+              {{ formatRain(entry, this.rainUnitInPol) }}
+              |
+              {{ entry.rain.probability }} %
+              <span class="material-symbols-outlined"> umbrella </span>
+            </td>
+          </tr>
+          <tr>
+            <td>{{ entry.text }}</td>
+          </tr>
+        </table>
       </div>
     </div>
-  
-  
-    <h1>Só funciona pra SP e Osasco por conta dos dados adquiridos</h1>
   </body>
-  </html>
-  
+</html>
