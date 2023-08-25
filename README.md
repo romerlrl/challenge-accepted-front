@@ -1,3 +1,17 @@
+# Running first time
+
+Install the Angular
+
+<code>npm install -g @angular/cli</code>
+
+Install the requirements
+
+<code>npm install</code>
+
+Run the project -
+
+<code>ng serve</code>
+
 # AngularClimatempoFrontend
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 13.3.5.
@@ -26,11 +40,13 @@ Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To u
 
 To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
 
+## TODO
 
-Install the Angular - npm install -g @angular/cli
-
-Verify the version(13.3.11) - ng --version 
-
-Install the requirements - npm install
-
-Run the project - ng serve
+- Usar dockercompose ao invés do Dockerfile
+- Adicionar o ícone e título da ClimaTempo
+- Usar o LocalStorage para guardar as preferências de usuário acerca da unidade preferida
+- Botar os cards mais horizontais
+- O ícone do Sunny day
+- Substituir esse [object object] pelo nome da cidade
+- Usar o mat-select
+- Preparar um README contando sobre o projeto.
