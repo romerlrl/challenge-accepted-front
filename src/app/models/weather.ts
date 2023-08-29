@@ -35,12 +35,12 @@ export function getIcon(weather: WeatherEntry): string {
   switch (true) {
     case (n < 30):
       {
-        r = "sunny_day"
+        r = "sunny-day"
         break;
       }
 
     case (n < 60): {
-      r = 'partly_cloudy_day'
+      r = 'partly-cloudy-day'
       break
     }
     default: {
