@@ -43,9 +43,14 @@ To get more help on the Angular CLI use `ng help` or go check out the [Angular C
 ## TODO
 
 - Usar dockercompose ao invés do Dockerfile
-- Usar o LocalStorage para guardar as preferências de usuário acerca da unidade preferida
+
 - Botar os cards mais horizontais
 - O ícone do Sunny day
 - Substituir esse [object object] pelo nome da cidade
 - Usar o mat-select
 - Preparar um README contando sobre o projeto.
+
+## DONE
+
+- Adicionar o ícone e título da ClimaTempo
+- Usar o LocalStorage para guardar as preferências de usuário acerca da unidade preferida

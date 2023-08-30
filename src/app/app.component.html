@@ -59,11 +59,14 @@
 
     <!-- Rounded switch -->
 
-    <mat-slide-toggle [(ngModel)]="temperatureUnitInCelsius"
-      >Exibir em Celsius</mat-slide-toggle
+    <mat-slide-toggle
+      [(ngModel)]="temperatureUnitInCelsius"
+      (change)="changeTemperatureUnit()"
+    >
+      Exibir em Celsius</mat-slide-toggle
     >
 
-    <mat-slide-toggle [(ngModel)]="rainUnitInPol"
+    <mat-slide-toggle [(ngModel)]="rainUnitInPol" (change)="changeVolumeUnit()"
       >Exibir em Polegadas</mat-slide-toggle
     >
     <!-- <button (click)="changeRainUnit()">{{ rainButtonText }}</button> -->

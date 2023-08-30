@@ -1,4 +1,4 @@
-import { LocalStorageService } from './services/local-storage.service';
+import { switchTemperatureUnit, switchVolumeUnit, getTemperatureUnit, getVolumeUnit } from './services/local-storage.service';
 import { WeatherService } from './services/weather.service';
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { FormControl } from '@angular/forms';
@@ -23,14 +23,17 @@ export class AppComponent implements OnInit {
   filteredOptions: Observable<City[]>;
 
   selectedCity: WeatherData | null = null;
-  //formatTemperature = get_temperature;
-  //formatRain = get_precipitation;
+  formatTemperature = get_temperature;
+  formatRain = get_precipitation;
   formatDate = getDate;
   formatProbability = getIcon
-  storage: LocalStorageService = new LocalStorageService()
+
+  storage: Storage = window.localStorage;
+  changeTemperatureUnit = switchTemperatureUnit
+  changeVolumeUnit = switchVolumeUnit
   // Variáveis para controle das unidades de temperatura e chuva
-  temperatureUnitInCelsius: boolean = this.storage.getTemperatureUnit()
-  rainUnitInPol: boolean = this.storage.getVolumeUnit()
+  temperatureUnitInCelsius: boolean = getTemperatureUnit()
+  rainUnitInPol: boolean = getVolumeUnit()
 
   // Texto dos botões para alterar unidades
   temperatureButtonText = 'Alterar para Fahrenheit';
@@ -81,14 +84,6 @@ export class AppComponent implements OnInit {
     })
     this.myControl.setValue(cityName);
   }
-  formatTemperature(weather: WeatherEntry, foo: boolean, minimal: boolean) {
-    let v = this.storage.getTemperatureUnit()
-    this.storage.setTemperatureUnit(!v)
-    get_temperature(weather, v, minimal)
-  };
-  formatRain(weather: WeatherEntry, foo: boolean): string {
-    let v = this.storage.getVolumeUnit()
-    this.storage.setVolumeUnit(!v)
-    return get_precipitation(weather, v)
-  }
+
+
 }
