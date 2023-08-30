@@ -42,10 +42,12 @@ To get more help on the Angular CLI use `ng help` or go check out the [Angular C
 
 ## TODO
 
-- Usar dockercompose ao invés do Dockerfile
 - Botar os cards mais horizontais
-
 - Preparar um README contando sobre o projeto.
+
+## DOING
+
+- Usar dockercompose ao invés do Dockerfile
 
 ## DONE
 
