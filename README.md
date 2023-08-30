@@ -44,7 +44,7 @@ To get more help on the Angular CLI use `ng help` or go check out the [Angular C
 
 - Usar dockercompose ao invés do Dockerfile
 - Botar os cards mais horizontais
-- Usar o mat-select
+
 - Preparar um README contando sobre o projeto.
 
 ## DONE
@@ -53,3 +53,4 @@ To get more help on the Angular CLI use `ng help` or go check out the [Angular C
 - Usar o LocalStorage para guardar as preferências de usuário acerca da unidade preferida
 - O ícone do Sunny day
 - Substituir esse [object object] pelo nome da cidade
+- Usar o mat-select

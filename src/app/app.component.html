@@ -57,6 +57,7 @@
           <mat-option
             *ngFor="let option of filteredOptions | async"
             [value]="option"
+            (click)="clickSubmit(option)"
           >
             {{ cityDisplayWith(option) }}
           </mat-option>

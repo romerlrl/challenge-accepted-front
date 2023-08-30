@@ -63,6 +63,15 @@ export class AppComponent implements OnInit {
       option => option.name.toLowerCase().indexOf(filterValue) === 0
     );
   }
+  clickSubmit(selected: City) {
+    let cityId = selected.id
+    const reqWeather = this.weatherService.getWeather(cityId)
+    reqWeather.subscribe((data) => {
+      console.log("weather", data)
+      this.selectedCity = data;
+      console.log(typeof data.weather[0].date)
+    })
+  }
 
   onSubmit() {
     console.log(this.myControl.value, typeof this.myControl.value)
