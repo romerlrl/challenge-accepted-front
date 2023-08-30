@@ -1,15 +1,15 @@
 import { switchTemperatureUnit, switchVolumeUnit, getTemperatureUnit, getVolumeUnit } from './services/local-storage.service';
 import { WeatherService } from './services/weather.service';
-import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { Observable } from 'rxjs';
 import { map, startWith } from 'rxjs/operators';
-import { City } from './models/city';
+import { City, showCity } from './models/city';
 import { WeatherData, WeatherEntry, get_temperature, get_precipitation, getDate, getIcon } from './models/weather';
 import { CityService } from './services/city.service';
 import { MatSelectModule } from '@angular/material/select';
 import { MatFormFieldModule } from '@angular/material/form-field';
-import { LocalStorage } from './models/local-storage';
+
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
@@ -17,11 +17,10 @@ import { LocalStorage } from './models/local-storage';
 })
 export class AppComponent implements OnInit {
   city = {} as City;
-  //@ViewChild("myName") myName2: ElementRef;
   options: City[]
-  myControl = new FormControl();
+  myControl = new FormControl("", []);
   filteredOptions: Observable<City[]>;
-
+  cityDisplayWith = showCity;
   selectedCity: WeatherData | null = null;
   formatTemperature = get_temperature;
   formatRain = get_precipitation;
@@ -82,7 +81,7 @@ export class AppComponent implements OnInit {
       this.selectedCity = data;
       console.log(typeof data.weather[0].date)
     })
-    this.myControl.setValue(cityName);
+    //this.myControl.setValue(cityName);
   }
 
 

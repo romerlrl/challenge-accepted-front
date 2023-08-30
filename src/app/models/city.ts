@@ -5,3 +5,8 @@ export interface City {
     latitude: number
     longitude: number
 }
+
+export function showCity(city: City): string {
+    if (typeof city.name == typeof undefined) { return "" }
+    return `${city.name} - ${city.state}`
+}

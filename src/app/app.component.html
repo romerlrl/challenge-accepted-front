@@ -30,35 +30,6 @@
         background-color: lightgrey;
       }
     </style>
-    <!-- Adicionar o ícone e o nome da ClimaTempo-->
-    <form class="example-form" (ngSubmit)="onSubmit()">
-      <mat-form-field>
-        <input
-          type="text"
-          placeholder="Enter Location"
-          matInput
-          [formControl]="myControl"
-          [matAutocomplete]="auto"
-        />
-        <mat-autocomplete #auto="matAutocomplete">
-          <mat-option
-            *ngFor="let option of filteredOptions | async"
-            [value]="option"
-          >
-            {{ option.name }}
-          </mat-option>
-        </mat-autocomplete>
-        <button type="submit">
-          <span class="material-symbols-outlined"> search </span>
-        </button>
-      </mat-form-field>
-    </form>
-    <!-- <button (click)="changeTemperatureUnit()">
-      {{ temperatureButtonText }}
-    </button> -->
-
-    <!-- Rounded switch -->
-
     <mat-slide-toggle
       [(ngModel)]="temperatureUnitInCelsius"
       (change)="changeTemperatureUnit()"
@@ -69,6 +40,33 @@
     <mat-slide-toggle [(ngModel)]="rainUnitInPol" (change)="changeVolumeUnit()"
       >Exibir em Polegadas</mat-slide-toggle
     >
+
+    <form class="example-form" (ngSubmit)="onSubmit()">
+      <mat-form-field [hiden]="true">
+        <input
+          type="text"
+          placeholder="Enter Location"
+          matInput
+          [formControl]="myControl"
+          [matAutocomplete]="auto"
+        />
+        <mat-autocomplete
+          #auto="matAutocomplete"
+          [displayWith]="cityDisplayWith"
+        >
+          <mat-option
+            *ngFor="let option of filteredOptions | async"
+            [value]="option"
+          >
+            {{ cityDisplayWith(option) }}
+          </mat-option>
+        </mat-autocomplete>
+        <button type="submit">
+          <span class="material-symbols-outlined"> search </span>
+        </button>
+      </mat-form-field>
+    </form>
+
     <!-- <button (click)="changeRainUnit()">{{ rainButtonText }}</button> -->
     <div *ngIf="selectedCity">
       <h2>
