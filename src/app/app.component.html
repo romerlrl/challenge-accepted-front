@@ -1,12 +1,3 @@
-<!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * -->
-<!-- * * * * * * * * * * * The content below * * * * * * * * * * * -->
-<!-- * * * * * * * * * * is only a placeholder * * * * * * * * * * -->
-<!-- * * * * * * * * * * and can be replaced. * * * * * * * * * * * -->
-<!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * -->
-<!-- * * * * * * * * * Delete the template below * * * * * * * * * * -->
-<!-- * * * * * * * to get started with your project! * * * * * * * * -->
-<!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * -->
-
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -25,10 +16,7 @@
       <base href="/" />
       <meta name="viewport" content="width=device-width, initial-scale=1" />
       <link rel="preconnect" href="https://fonts.gstatic.com" />
-      <link
-        href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500&display=swap"
-        rel="stylesheet"
-      />
+      <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500&display=swap" rel="stylesheet"/>
       <link
         href="https://fonts.googleapis.com/icon?family=Material+Icons"
         rel="stylesheet"
@@ -95,8 +83,6 @@
           </button>
         </mat-form-field>
       </form>
-
-      <!-- <button (click)="changeRainUnit()">{{ rainButtonText }}</button> -->
       <div *ngIf="selectedCity">
         <h2>
           Previsão para {{ selectedCity.locale.name }} -
@@ -111,58 +97,6 @@
           *ngFor="let entry of selectedCity.weather; let i = index"
           class="weather-card"
         >
-          <!-- <h3>Dia {{ i + 1 }}</h3>
-        <p>Data: {{ entry.date }}: {{ formatDate(entry) }}</p>
-        <p>{{ entry.text }}</p>
-        <p>
-          Temperatura Mínima:
-          {{ formatTemperature(entry, !this.temperatureUnitInCelsius, true) }}
-        </p>
-        <p>
-          Temperatura Máxima:
-          {{ formatTemperature(entry, !this.temperatureUnitInCelsius, false) }}
-        </p>
-        <p>Probabilidade de Chuva: {{ entry.rain.probability }}%</p>
-        <p>
-          Precipitação de Chuva: {{ formatRain(entry, this.rainUnitInPol) }}
-        </p> -->
-          <!-- <table class="weather-card">
-          <tr>
-            <th
-              colspan="16"
-              style="
-                background-color: white;
-                color: black;
-                font-size: 12px;
-                font-family: Arial, sans-serif;
-                text-align: left;
-              "
-            >
-              Data: {{ entry.date }}: {{ entry.text }}
-            </th>
-          </tr>
-          <tr>
-            <td>MIN</td>
-            <td>{{ entry.temperature.min }}</td>
-            <td>-</td>
-            <td>-</td>
-            <td>MAX</td>
-            <td>{{ entry.temperature.max }}</td>
-
-            <td>-</td>
-            <td>-</td>
-          </tr>
-          <tr>
-            <td>Porcentagem</td>
-            <td>{{ entry.rain.probability }}</td>
-            <td>Volume</td>
-            <td>{{ entry.rain.precipitation }}</td>
-            <td>-</td>
-            <td>-</td>
-            <td>-</td>
-            <td>-</td>
-          </tr>
-        </table> -->
           <table class="rounded-table">
             <tr>
               <td>{{ formatDate(entry) }}</td>
