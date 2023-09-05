@@ -16,7 +16,10 @@
       <base href="/" />
       <meta name="viewport" content="width=device-width, initial-scale=1" />
       <link rel="preconnect" href="https://fonts.gstatic.com" />
-      <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500&display=swap" rel="stylesheet"/>
+      <link
+        href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500&display=swap"
+        rel="stylesheet"
+      />
       <link
         href="https://fonts.googleapis.com/icon?family=Material+Icons"
         rel="stylesheet"
@@ -28,40 +31,52 @@
       />
     </head>
     <body>
-      <br /><br /><br />
-      <div>
-        <img
-          src="./assets/images/logo-white.png"
-          style="max-width: 100%"
-          alt="Logo ClimaTempo"
-          class="logo"
-        />
-        <br />
-        <mat-slide-toggle
-          [(ngModel)]="temperatureUnitInCelsius"
-          (change)="changeTemperatureUnit()"
-        >
-          Exibir em Celsius</mat-slide-toggle
-        >
+      <style>
+        body {
+          background-color: lightgrey;
+        }
+        .logo {
+          max-width: 100px; /* Defina o tamanho máximo da imagem */
 
-        <mat-slide-toggle
-          [(ngModel)]="rainUnitInPol"
-          (change)="changeVolumeUnit()"
-          >Exibir em Polegadas</mat-slide-toggle
-        >
+          background-color: #4169e1;
+        }
+      </style>
+      <img
+        src="./assets/images/logo-white.png"
+        style="max-width: 100%"
+        alt="Logo ClimaTempo"
+        class="logo"
+      />
+      <mat-slide-toggle
+        [(ngModel)]="temperatureUnitInCelsius"
+        (change)="changeTemperatureUnit()"
+      >
+        Exibir em Celsius</mat-slide-toggle
+      >
 
-        <form class="example-form" (ngSubmit)="onSubmit()">
-          <mat-form-field [hiden]="true">
-            <input
-              type="text"
-              placeholder="Enter Location"
-              matInput
-              [formControl]="myControl"
-              [matAutocomplete]="auto"
-            />
-            <mat-autocomplete
-              #auto="matAutocomplete"
-              [displayWith]="cityDisplayWith"
+      <mat-slide-toggle
+        [(ngModel)]="rainUnitInPol"
+        (change)="changeVolumeUnit()"
+        >Exibir em Polegadas</mat-slide-toggle
+      >
+
+      <form class="example-form" (ngSubmit)="onSubmit()">
+        <mat-form-field [hiden]="true">
+          <input
+            type="text"
+            placeholder="Enter Location"
+            matInput
+            [formControl]="myControl"
+            [matAutocomplete]="auto"
+          />
+          <mat-autocomplete
+            #auto="matAutocomplete"
+            [displayWith]="cityDisplayWith"
+          >
+            <mat-option
+              *ngFor="let option of filteredOptions | async"
+              [value]="option"
+              (click)="clickSubmit(option)"
             >
               {{ cityDisplayWith(option) }}
             </mat-option>
@@ -85,46 +100,47 @@
           *ngFor="let entry of selectedCity.weather; let i = index"
           class="weather-card"
         >
-          <table class="rounded-table">
+          <table class="weather-card" width="98%">
             <tr>
-              <td>{{ formatDate(entry) }}</td>
-            </tr>
-            <tr>
-              <td>
+              <th rowspan="2">
                 <span class="material-symbols-outlined">
                   {{ formatProbability(entry) }}
                 </span>
                 <br />
-                {{ formatDate(entry) }}
-              </h1>
-            </th>
-            <th>
-              <span class="material-symbols-outlined"> arrow_downward </span>
-              {{
-                formatTemperature(entry, !this.temperatureUnitInCelsius, true)
-              }}
-            </th>
-            <th>
-              <span class="material-symbols-outlined"> arrow_upward </span>
-              {{
-                formatTemperature(entry, !this.temperatureUnitInCelsius, false)
-              }}
-            </th>
-          </tr>
-          <tr>
-            <th>
-              <span class="material-symbols-outlined"> umbrella</span>
-              {{ entry.rain.probability }} %
-            </th>
-            <th>
-              <span class="material-symbols-outlined"> water_drop </span>
-              {{ formatRain(entry, this.rainUnitInPol) }}
-            </th>
-          </tr>
-
-          <tr>
-            <td colspan="3">{{ entry.text }}</td>
-          </tr>
+                <h1>{{ formatDate(entry) }}</h1>
+              </th>
+              <th width="40%">
+                <span class="material-symbols-outlined"> arrow_downward </span>
+                {{
+                  formatTemperature(entry, !this.temperatureUnitInCelsius, true)
+                }}
+              </th>
+              <th width="40%">
+                <span class="material-symbols-outlined"> arrow_upward </span>
+                {{
+                  formatTemperature(
+                    entry,
+                    !this.temperatureUnitInCelsius,
+                    false
+                  )
+                }}
+              </th>
+            </tr>
+            <tr>
+              <th>
+                <span class="material-symbols-outlined"> umbrella</span
+                ><!--
+                 -->{{ entry.rain.probability }}%
+              </th>
+              <th>
+                <span class="material-symbols-outlined"> water_drop </span>
+                {{ formatRain(entry, this.rainUnitInPol) }}
+              </th>
+            </tr>
+            <tr>
+              <td colspan="3">{{ entry.text }}</td>
+            </tr>
+          </table>
         </div>
       </div>
     </body>
