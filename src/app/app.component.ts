@@ -62,13 +62,16 @@ export class AppComponent implements OnInit {
     );
   }
   clickSubmit(selected: City) {
-    let cityId = selected.id
-    const reqWeather = this.weatherService.getWeather(cityId)
+    this.myControl.setValue(selected)
+    this.onSubmit()
+
+    /*let cityId = selected.id
+     const reqWeather = this.weatherService.getWeather(cityId)
     reqWeather.subscribe((data) => {
       console.log("weather", data)
       this.selectedCity = data;
       console.log(typeof data.weather[0].date)
-    })
+    }) */
   }
 
   onSubmit() {

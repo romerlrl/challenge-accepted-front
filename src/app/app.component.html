@@ -31,22 +31,13 @@
       />
     </head>
     <body>
-      <style>
-        body {
-          background-color: lightgrey;
-        }
-        .logo {
-          max-width: 100px; /* Defina o tamanho máximo da imagem */
-
-          background-color: #4169e1;
-        }
-      </style>
       <img
         src="./assets/images/logo-white.png"
         style="max-width: 100%"
         alt="Logo ClimaTempo"
         class="logo"
       />
+      <br />
       <mat-slide-toggle
         [(ngModel)]="temperatureUnitInCelsius"
         (change)="changeTemperatureUnit()"
@@ -81,9 +72,9 @@
               {{ cityDisplayWith(option) }}
             </mat-option>
           </mat-autocomplete>
-          <button type="submit">
+          <!-- <button type="submit">
             <span class="material-symbols-outlined"> search </span>
-          </button>
+          </button> -->
         </mat-form-field>
       </form>
       <div *ngIf="selectedCity">
