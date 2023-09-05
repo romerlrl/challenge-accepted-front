@@ -1,12 +1,3 @@
-<!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * -->
-<!-- * * * * * * * * * * * The content below * * * * * * * * * * * -->
-<!-- * * * * * * * * * * is only a placeholder * * * * * * * * * * -->
-<!-- * * * * * * * * * * and can be replaced. * * * * * * * * * * * -->
-<!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * -->
-<!-- * * * * * * * * * Delete the template below * * * * * * * * * * -->
-<!-- * * * * * * * to get started with your project! * * * * * * * * -->
-<!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * -->
-
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -25,10 +16,7 @@
       <base href="/" />
       <meta name="viewport" content="width=device-width, initial-scale=1" />
       <link rel="preconnect" href="https://fonts.gstatic.com" />
-      <link
-        href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500&display=swap"
-        rel="stylesheet"
-      />
+      <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500&display=swap" rel="stylesheet"/>
       <link
         href="https://fonts.googleapis.com/icon?family=Material+Icons"
         rel="stylesheet"
@@ -75,23 +63,15 @@
               #auto="matAutocomplete"
               [displayWith]="cityDisplayWith"
             >
-              <mat-option
-                *ngFor="let option of filteredOptions | async"
-                [value]="option"
-                (click)="clickSubmit(option)"
-              >
-                {{ cityDisplayWith(option) }}
-              </mat-option>
-            </mat-autocomplete>
-            <button type="submit">
-              <span class="material-symbols-outlined"> search </span>
-            </button>
-          </mat-form-field>
-        </form>
-      </div>
-      <!-- <button (click)="changeRainUnit()">{{ rainButtonText }}</button> -->
-
-      <div *ngIf="selectedCity" background-color="4169e1">
+              {{ cityDisplayWith(option) }}
+            </mat-option>
+          </mat-autocomplete>
+          <button type="submit">
+            <span class="material-symbols-outlined"> search </span>
+          </button>
+        </mat-form-field>
+      </form>
+      <div *ngIf="selectedCity">
         <h2>
           Previsão para {{ selectedCity.locale.name }} -
           {{ selectedCity.locale.state }}
@@ -105,9 +85,12 @@
           *ngFor="let entry of selectedCity.weather; let i = index"
           class="weather-card"
         >
-          <tr>
-            <th rowspan="2">
-              <h1>
+          <table class="rounded-table">
+            <tr>
+              <td>{{ formatDate(entry) }}</td>
+            </tr>
+            <tr>
+              <td>
                 <span class="material-symbols-outlined">
                   {{ formatProbability(entry) }}
                 </span>

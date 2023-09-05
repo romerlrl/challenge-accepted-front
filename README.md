@@ -3,6 +3,7 @@
 Run the project -
 
 <code>docker compose up</code>
+<code>docker compose up</code>
 
 # AngularClimatempoFrontend
 
@@ -30,7 +31,12 @@ To get more help on the Angular CLI use `ng help` or go check out the [Angular C
 
 ## TODO
 
-## DOING
+- Botar os cards mais horizontais
+- Preparar um README contando sobre o projeto.
+
+## DONE
+
+## DONE
 
 - Preparar um README contando sobre o projeto.
 

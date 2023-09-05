@@ -8,7 +8,7 @@ import { City } from '../models/city';
   providedIn: 'root'
 })
 export class CityService {
-  url = 'http://localhost:8080/'
+  url = 'http://localhost:8000/'
   constructor(private http: HttpClient) { }
 
   // Headers
