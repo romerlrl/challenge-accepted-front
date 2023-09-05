@@ -3,12 +3,13 @@ import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http
 import { Observable, throwError } from 'rxjs';
 import { retry, catchError } from 'rxjs/operators';
 import { City } from '../models/city';
+import { environment } from '../../environments/environment'
 
 @Injectable({
   providedIn: 'root'
 })
 export class CityService {
-  url = 'http://localhost:8000/'
+  url = 'http://localhost:8080/'
   constructor(private http: HttpClient) { }
 
   // Headers

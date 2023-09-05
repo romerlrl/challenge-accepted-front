@@ -3,11 +3,13 @@ import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http
 import { Observable, throwError } from 'rxjs';
 import { retry, catchError } from 'rxjs/operators';
 import { WeatherData } from '../models/weather';
+import { environment } from '../../environments/environment'
+
 @Injectable({
   providedIn: 'root'
 })
 export class WeatherService {
-  url = 'http://localhost:8080/'
+  url = environment.API_URL
   constructor(private http: HttpClient) { }
 
   // Headers
