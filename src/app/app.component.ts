@@ -5,7 +5,7 @@ import { FormControl } from '@angular/forms';
 import { Observable } from 'rxjs';
 import { map, startWith } from 'rxjs/operators';
 import { City, showCity } from './models/city';
-import { WeatherData, WeatherEntry, get_temperature, get_precipitation, getDate, getIcon } from './models/weather';
+import { WeatherData, WeatherEntry, getTemperature, getPrecipitation, getDate, getIcon } from './models/weather';
 import { CityService } from './services/city.service';
 import { MatSelectModule } from '@angular/material/select';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -21,9 +21,9 @@ export class AppComponent implements OnInit {
   myControl = new FormControl("", []);
   filteredOptions: Observable<City[]>;
   cityDisplayWith = showCity;
-  selectedCity: WeatherData | null = null;
-  formatTemperature = get_temperature;
-  formatRain = get_precipitation;
+  selectedCity?: WeatherData = undefined;
+  formatTemperature = getTemperature;
+  formatRain = getPrecipitation;
   formatDate = getDate;
   formatProbability = getIcon
 

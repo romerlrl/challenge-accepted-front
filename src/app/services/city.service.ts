@@ -9,7 +9,7 @@ import { environment } from '../../environments/environment'
   providedIn: 'root'
 })
 export class CityService {
-  url = 'http://localhost:8080/'
+  url = environment.API_URL
   constructor(private http: HttpClient) { }
 
   // Headers

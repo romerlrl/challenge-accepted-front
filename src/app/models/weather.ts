@@ -50,25 +50,25 @@ export function getIcon(weather: WeatherEntry): string {
   }
   return r
 }
-export function get_temperature(weather: WeatherEntry, toFahrenheit: boolean, minimal: boolean): string {
-  let temp = weather.temperature.max
+export function getTemperature(weather: WeatherEntry, toFahrenheit: boolean, minimal: boolean): string {
+  let temperature = weather.temperature.max
   let unit = 'º C'
-  if (minimal) { temp = weather.temperature.min }
+  if (minimal) { temperature = weather.temperature.min }
   if (toFahrenheit) {
-    temp = (temp * 1.8) + 32
+    temperature = (temperature * 1.8) + 32
     unit = "º F"
   }
-  return `${temp.toFixed(1)} ${unit}`
+  return `${temperature.toFixed(1)} ${unit}`
 }
 
-export function get_precipitation(weather: WeatherEntry, to_inch: boolean): string {
-  let temp = weather.rain.precipitation
+export function getPrecipitation(weather: WeatherEntry, to_inch: boolean): string {
+  let precepitation: number = weather.rain.precipitation
   let unit = 'mm'
   if (to_inch) {
     unit = 'pol'
-    temp = temp / 25.4
+    precepitation = precepitation / 25.4
   }
-  return `${temp.toFixed(1)} ${unit}`
+  return `${precepitation.toFixed(1)} ${unit}`
 }
 
 
