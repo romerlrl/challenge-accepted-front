@@ -42,8 +42,6 @@ export class AppComponent implements OnInit {
 
   }
   ngOnInit() {
-    //this.myControl.setValue('Escolha sua cidade');
-
     const req = this.cityService.getCity();
 
     req.subscribe((data) => {
@@ -82,7 +80,6 @@ export class AppComponent implements OnInit {
       //exibir um "cidade não encontrada"?
       return
     }
-    //this.selectedCity = weatherData.find((data: WeatherData) => data.locale.name === cityName) || null;
     const reqWeather = this.weatherService.getWeather(cityId)
 
     reqWeather.subscribe((data) => {
@@ -90,8 +87,5 @@ export class AppComponent implements OnInit {
       this.selectedCity = data;
       console.log(typeof data.weather[0].date)
     })
-    //this.myControl.setValue(cityName);
   }
-
-
 }
