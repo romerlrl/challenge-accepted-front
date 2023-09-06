@@ -1,50 +1,38 @@
-# Running first time
+# Sobre o nosso projeto
 
-Run the project -
+O objetivo deste projeto é desenvolver um sistema web para a visualização de temperatura, quantidade e probabilidade de chuva em dispositivos móveis. Empregamos nossas habilidades e conhecimentos adquiridos ao longo do curso para tornar este projeto uma realidade.
+
+# Tecnologias e ferramentas utilizadas
+
+<div>
+
+<img src="https://img.shields.io/badge/JavaScript-F7DF1E?style=for-the-badge&logo=javascript&logoColor=black">
+<img src="https://img.shields.io/badge/TypeScript-007ACC?style=for-the-badge&logo=typescript&logoColor=white">
+<img src="https://img.shields.io/badge/Angular-DD0031?style=for-the-badge&logo=angular&logoColor=white">
+<img src="https://img.shields.io/badge/HTML5-E34F26?style=for-the-badge&logo=html5&logoColor=white">
+<img src="https://img.shields.io/badge/CSS3-1572B6?style=for-the-badge&logo=css3&logoColor=white">
+
+</div>
+
+
+# Rodando pela primeira vez:
+
+<h3>- Dowload docker desktop</h3>
+
+[Dowload Docker](https://www.docker.com/products/docker-desktop/)
+
+<h3>-Run the project </h3>
 
 <code>docker compose up</code>
-<code>docker compose up</code>
 
-# AngularClimatempoFrontend
+Após isso entre nesse link para ver a aplicação rodando:
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 13.3.5.
+[App](http://localhost:4200/)
 
-## Development server
+<h2>Equipe<h2>
 
-Run `docker compose up` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
+| Nome                     |                     GitHub                     |                    Linkedin                    |
+| :----------------------- | :--------------------------------------------: | :--------------------------------------------: |
+| Lucas Römer Leão         |   [GitHub](https://github.com/romerlrl)        | [Linkedin](https://www.linkedin.com/in/romerl/)|
+| Victor Guilherme Branco Portela  |   [GitHub](https://github.com/VictorGuui)      | [Linkedin](https://www.linkedin.com/in/victor-guilherme-branco-portela-323386190/)|
 
-<!-- ## Build
-
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
-
-## Running unit tests -->
-
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
-
-## Running end-to-end tests
-
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
-
-## Further help
-
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
-
-## TODO
-
-- Botar os cards mais horizontais
-- Preparar um README contando sobre o projeto.
-
-## DONE
-
-## DONE
-
-- Preparar um README contando sobre o projeto.
-
-## DONE
-
-- Usar dockercompose ao invés do Dockerfile
-- Adicionar o ícone e título da ClimaTempo
-- Usar o LocalStorage para guardar as preferências de usuário acerca da unidade preferida
-- O ícone do Sunny day
-- Substituir esse [object object] pelo nome da cidade
-- Usar o mat-select
